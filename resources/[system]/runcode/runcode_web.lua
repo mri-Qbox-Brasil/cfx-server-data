@@ -50,9 +50,7 @@ local function handleRunCode(data, res)
 	end
 end
 
-RegisterNetEvent('runcode:runInBand')
-
-AddEventHandler('runcode:runInBand', function(id, data)
+RegisterNetEvent('runcode:runInBand', function(id, data)
 	local s = source
 	local privs = GetPrivs(s)
 
@@ -113,7 +111,7 @@ end
 CreateThread(function()
 	while true do
 		Wait(1000)
-		
+
 		if attempts > 0 and (GetGameTimer() - lastAttempt) > 5000 then
 			attempts = 0
 			lastAttempt = 0
@@ -146,7 +144,7 @@ CreateThread(function()
 	while true do
 		Wait(100)
 
-		for k, v in ipairs(codes) do
+		for k, v in pairs(codes) do
 			if GetGameTimer() > v.timeout then
 				source = nil
 				returnCode(k, '', 'Timed out waiting on the target client.')
@@ -155,8 +153,7 @@ CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('runcode:gotResult')
-AddEventHandler('runcode:gotResult', returnCode)
+RegisterNetEvent('runcode:gotResult', returnCode)
 
 SetHttpHandler(function(req, res)
 	local path = req.path

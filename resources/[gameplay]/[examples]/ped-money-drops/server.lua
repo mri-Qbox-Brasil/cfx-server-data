@@ -1,8 +1,6 @@
 local safePositions = {}
 
-RegisterNetEvent('money:allowPickupNear')
-
-AddEventHandler('money:allowPickupNear', function(pedId)
+RegisterNetEvent('money:allowPickupNear', function(pedId)
     local entity = NetworkGetEntityFromNetworkId(pedId)
 
     Wait(250)
@@ -19,9 +17,7 @@ AddEventHandler('money:allowPickupNear', function(pedId)
     safePositions[pedId] = coords
 end)
 
-RegisterNetEvent('money:tryPickup')
-
-AddEventHandler('money:tryPickup', function(entity)
+RegisterNetEvent('money:tryPickup', function(entity)
     if not safePositions[entity] then
         return
     end
@@ -38,5 +34,5 @@ AddEventHandler('money:tryPickup', function(entity)
 end)
 
 AddEventHandler('entityRemoved', function(entity)
-    safePositions[entity] = nil
+    safePositions[NetworkGetNetworkIdFromEntity(entity)] = nil
 end)
